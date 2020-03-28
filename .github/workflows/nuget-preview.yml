@@ -1,0 +1,30 @@
+name: Continuous Deployment PREVIEW
+on:
+  push:
+    tags:
+      - preview*
+jobs:
+  build:
+    env:
+      VERSION_SUFFIX: preview${{ github.run_id }}
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.102
+    - name: dotnet build
+      run: dotnet build Mk.FileStorage.sln -c Release
+      working-directory: src
+    - name: dotnet pack [Mk.FileStorage]
+      run: dotnet pack ./Mk.FileStorage/Mk.FileStorage.csproj -c Release --version-suffix $VERSION_SUFFIX --no-build --include-source --include-symbols -o ./artifacts
+      working-directory: src
+    - name: setup nuget
+      uses: NuGet/setup-nuget@v1.0.2
+      with:
+        nuget-version: latest
+    - name: push Mk.FileStorage nuget
+      run: dotnet nuget push ./artifacts/Mk.FileStorage.*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      working-directory: src
