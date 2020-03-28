@@ -20,13 +20,15 @@ namespace Mk.FileStorage.Sample
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = _configuration.GetConnectionString("AzureBlobStorage");
+
             if (_env.IsDevelopment())
             {
-                CreateContainerIfNotExists();
+                CreateContainerIfNotExists(connectionString);
             }
 
             services.Configure<AzureBlobStorageOptions>(_configuration.GetSection(AzureBlobStorageOptions.DefaultSection));
-            services.AddTransient(serviceProvider => new BlobServiceClient(_configuration["AzureBlobStorage:ConnectionString"]));
+            services.AddTransient(serviceProvider => new BlobServiceClient(connectionString));
             services.AddTransient<IFileStorageService, AzureBlobStorageService>();
         }
 
@@ -40,11 +42,11 @@ namespace Mk.FileStorage.Sample
             });
         }
 
-        private void CreateContainerIfNotExists()
+        private void CreateContainerIfNotExists(string connectionString)
         {
             var section = AzureBlobStorageOptions.DefaultSection;
-            var connectionString = _configuration[$"{section}:{nameof(AzureBlobStorageOptions.ConnectionString)}"];
-            var containerName = _configuration[$"{section}:{nameof(AzureBlobStorageOptions.ContainerName)}"];
+            var containerName = _configuration.GetSection(section)
+                .GetValue<string>(nameof(AzureBlobStorageOptions.ContainerName));
 
             var blobServiceClient = new BlobServiceClient(connectionString);
             var blobContainerClient = blobServiceClient.GetBlobContainerClient(containerName);
