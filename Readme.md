@@ -66,13 +66,13 @@ You can register services calling `AddAzureMkFileStorage` with configuration and
 ```
 
 Configuration can be as follow in appsettings:
-`json
+```json
     {
       "AzureBlobStorage": {
         "ContainerName": "default"
       }
     }
-`
+```
 
 Run sample in Visual Studio or with command line:
 
