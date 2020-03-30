@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.4.0" />
   </ItemGroup>
 
 </Project>

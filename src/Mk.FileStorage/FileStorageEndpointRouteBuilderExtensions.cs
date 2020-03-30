@@ -9,12 +9,12 @@ namespace Mk.FileStorage
         private const string DefaultDisplayName = "File Storage";
         private const string DefaultPattern = "files";
 
-        public static IEndpointConventionBuilder MapFileStorage(this IEndpointRouteBuilder endpoints)
+        public static IEndpointConventionBuilder MapMkFileStorage(this IEndpointRouteBuilder endpoints)
         {
-            return MapFileStorage(endpoints, DefaultPattern);
+            return MapMkFileStorage(endpoints, DefaultPattern);
         }
 
-        public static IEndpointConventionBuilder MapFileStorage(this IEndpointRouteBuilder endpoints, string pattern)
+        public static IEndpointConventionBuilder MapMkFileStorage(this IEndpointRouteBuilder endpoints, string pattern)
         {
             if (endpoints == null) throw new ArgumentNullException(nameof(endpoints));
             if (pattern == null) throw new ArgumentNullException(nameof(pattern));

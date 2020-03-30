@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mk.FileStorage.Azure\Mk.FileStorage.Azure.csproj" />
     <ProjectReference Include="..\Mk.FileStorage\Mk.FileStorage.csproj" />
   </ItemGroup>
 

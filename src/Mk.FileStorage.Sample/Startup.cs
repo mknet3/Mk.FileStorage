@@ -27,9 +27,7 @@ namespace Mk.FileStorage.Sample
                 CreateContainerIfNotExists(connectionString);
             }
 
-            services.Configure<AzureBlobStorageOptions>(_configuration.GetSection(AzureBlobStorageOptions.DefaultSection));
-            services.AddTransient(serviceProvider => new BlobServiceClient(connectionString));
-            services.AddTransient<IFileStorageService, AzureBlobStorageService>();
+            services.AddAzureMkFileStorage(_configuration, connectionString);
         }
 
         public void Configure(IApplicationBuilder app)
@@ -38,7 +36,7 @@ namespace Mk.FileStorage.Sample
 
             app.UseEndpoints(endpoints =>
             { 
-                endpoints.MapFileStorage();
+                endpoints.MapMkFileStorage();
             });
         }
 

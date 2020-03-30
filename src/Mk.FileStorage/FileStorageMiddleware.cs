@@ -33,7 +33,7 @@ namespace Mk.FileStorage
             if (httpContext.Request.Method == HttpMethod.Post.Method)
             {
                 await _fileStorageService.UploadAsync((string)fileName, httpContext.Request.Body);
-                httpContext.Response.StatusCode = StatusCodes.Status204NoContent;
+                httpContext.Response.StatusCode = StatusCodes.Status201Created;
             }
 
             if (httpContext.Request.Method == HttpMethod.Get.Method)
@@ -41,6 +41,7 @@ namespace Mk.FileStorage
                 try
                 {
                     httpContext.Response.ContentType = "application/octet-stream";
+                    httpContext.Response.StatusCode = StatusCodes.Status200OK;
                     await _fileStorageService.DownloadToAsync((string)fileName, httpContext.Response.Body);
                 }
                 catch (FileStorageException ex)

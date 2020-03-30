@@ -49,20 +49,32 @@ The default endpoint is /files, but you can choice other setting pattern:
     }
 ```
 
-And register an IFileStorageService. In this case we add Azure Blob implementation:
+You can register services calling `AddAzureMkFileStorage` with configuration and connection string:
 
 ```csharp
     public void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<AzureBlobStorageOptions>(_configuration.GetSection(AzureBlobStorageOptions.DefaultSection));
+        var connectionString = _configuration.GetConnectionString("AzureBlobStorage");
 
-        services.AddTransient(serviceProvider => new BlobServiceClient(_configuration.GetConnectionString("AzureBlobStorage")));
+        if (_env.IsDevelopment())
+        {
+            CreateContainerIfNotExists(connectionString);
+        }
 
-        services.AddTransient<IFileStorageService, AzureBlobStorageService>();
+        services.AddAzureMkFileStorage(_configuration, connectionString);
     }
 ```
 
-Run in Visual Studio or with command line:
+Configuration can be as follow in appsettings:
+`json
+    {
+      "AzureBlobStorage": {
+        "ContainerName": "default"
+      }
+    }
+`
+
+Run sample in Visual Studio or with command line:
 
 ```csharp
 dotnet run --project src\Mk.FileStorage.Sample\Mk.FileStorage.Sample.csproj

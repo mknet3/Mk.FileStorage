@@ -21,10 +21,16 @@ jobs:
     - name: dotnet pack [Mk.FileStorage]
       run: dotnet pack ./Mk.FileStorage/Mk.FileStorage.csproj -c Release --version-suffix $VERSION_SUFFIX --no-build --include-source --include-symbols -o ./artifacts
       working-directory: src
+    - name: dotnet pack [Mk.FileStorage.Azure]
+      run: dotnet pack ./Mk.FileStorage.Azure/Mk.FileStorage.Azure.csproj -c Release --version-suffix $VERSION_SUFFIX --no-build --include-source --include-symbols -o ./artifacts
+      working-directory: src
     - name: setup nuget
       uses: NuGet/setup-nuget@v1.0.2
       with:
         nuget-version: latest
+    - name: push Mk.FileStorage.Azure nuget
+      run: dotnet nuget push ./artifacts/Mk.FileStorage.Azure.*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      working-directory: src
     - name: push Mk.FileStorage nuget
       run: dotnet nuget push ./artifacts/Mk.FileStorage.*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
       working-directory: src
