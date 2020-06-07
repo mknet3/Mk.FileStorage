@@ -44,7 +44,7 @@ The default endpoint is /files, but you can choice other setting pattern:
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapFileStorage(pattern: "otherendpoint");
+            endpoints.MapMkFileStorage(pattern: "otherendpoint");
         });
     }
 ```
