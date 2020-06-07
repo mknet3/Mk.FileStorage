@@ -30,7 +30,7 @@ To be able to upload files from your project to Azure Storage only you need add 
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapFileStorage();
+            endpoints.MapMkFileStorage();
         });
     }
 ```
