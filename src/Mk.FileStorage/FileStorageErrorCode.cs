@@ -2,7 +2,7 @@ using System;
 
 namespace Mk.FileStorage
 {
-    public struct FileStorageErrorCode
+    public readonly struct FileStorageErrorCode
     {
         private readonly string _value;
 
@@ -12,6 +12,8 @@ namespace Mk.FileStorage
         }
 
         public static FileStorageErrorCode FileNotFound { get; } = new FileStorageErrorCode(nameof(FileNotFound));
+
+        public static FileStorageErrorCode FileAlreadyExists { get; } = new FileStorageErrorCode(nameof(FileAlreadyExists));
 
         public static bool operator ==(FileStorageErrorCode left, FileStorageErrorCode right) => left.Equals(right);
 

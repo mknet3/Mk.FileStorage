@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mk.FileStorage.Sample", "Mk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mk.FileStorage", "Mk.FileStorage\Mk.FileStorage.csproj", "{65103A0C-D804-4655-89CE-E45D76E94DB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mk.FileStorage.Azure", "Mk.FileStorage.Azure\Mk.FileStorage.Azure.csproj", "{D0272454-D4BF-40E7-9729-9F106EB51587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mk.FileStorage.Azure", "Mk.FileStorage.Azure\Mk.FileStorage.Azure.csproj", "{D0272454-D4BF-40E7-9729-9F106EB51587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mk.FileStorage.AspNetCore", "Mk.FileStorage.AspNetCore\Mk.FileStorage.AspNetCore.csproj", "{81518F97-6D92-4FD5-A343-CEC67A1F72F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D0272454-D4BF-40E7-9729-9F106EB51587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0272454-D4BF-40E7-9729-9F106EB51587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0272454-D4BF-40E7-9729-9F106EB51587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81518F97-6D92-4FD5-A343-CEC67A1F72F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81518F97-6D92-4FD5-A343-CEC67A1F72F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81518F97-6D92-4FD5-A343-CEC67A1F72F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81518F97-6D92-4FD5-A343-CEC67A1F72F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

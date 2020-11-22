@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>be8b1d0a-5bf9-4eb4-851d-95ce6b07f6ad</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mk.FileStorage.Azure\Mk.FileStorage.Azure.csproj" />
-    <ProjectReference Include="..\Mk.FileStorage\Mk.FileStorage.csproj" />
+	<ProjectReference Include="..\Mk.FileStorage.AspNetCore\Mk.FileStorage.AspNetCore.csproj" />
+	<ProjectReference Include="..\Mk.FileStorage.Azure\Mk.FileStorage.Azure.csproj" />
   </ItemGroup>
 
 </Project>

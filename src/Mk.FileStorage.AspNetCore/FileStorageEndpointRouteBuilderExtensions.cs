@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Mk.FileStorage
+namespace Mk.FileStorage.AspNetCore
 {
     public static class FileStorageEndpointRouteBuilderExtensions
     {
@@ -14,16 +14,16 @@ namespace Mk.FileStorage
             return MapMkFileStorage(endpoints, DefaultPattern);
         }
 
-        public static IEndpointConventionBuilder MapMkFileStorage(this IEndpointRouteBuilder endpoints, string pattern)
+        public static IEndpointConventionBuilder MapMkFileStorage(this IEndpointRouteBuilder endpoints, string filesPath)
         {
             if (endpoints == null) throw new ArgumentNullException(nameof(endpoints));
-            if (pattern == null) throw new ArgumentNullException(nameof(pattern));
+            if (filesPath == null) throw new ArgumentNullException(nameof(filesPath));
 
             var pipeline = endpoints.CreateApplicationBuilder()
                 .UseMiddleware<FileStorageMiddleware>()
                 .Build();
 
-            pattern = pattern.TrimEnd('/') + "/{fileName}";
+            var pattern = filesPath.TrimEnd('/') + "/{fileName}";
             return endpoints.Map(pattern, pipeline).WithDisplayName(DefaultDisplayName);
         }
     }

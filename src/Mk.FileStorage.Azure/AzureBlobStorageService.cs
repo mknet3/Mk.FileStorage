@@ -21,8 +21,16 @@ namespace Mk.FileStorage.Azure
 
         public async Task UploadAsync(string fileName, Stream stream)
         {
-            var blob = GetBlobClient(fileName);
-            await blob.UploadAsync(stream);
+            try
+            {
+                var blob = GetBlobClient(fileName);
+                await blob.UploadAsync(stream);
+            }
+            catch (RequestFailedException ex)
+                when (ex.ErrorCode == BlobErrorCode.BlobAlreadyExists)
+            {
+                throw new FileStorageException("File already exists in azure storage", FileStorageErrorCode.FileAlreadyExists, ex);
+            }
         }
 
         public async Task DownloadToAsync(string fileName, Stream stream)
@@ -33,11 +41,9 @@ namespace Mk.FileStorage.Azure
                 await blob.DownloadToAsync(stream);
             }
             catch (RequestFailedException ex)
+                when (ex.ErrorCode == BlobErrorCode.BlobNotFound || ex.ErrorCode == BlobErrorCode.ContainerNotFound)
             {
-                if (ex.ErrorCode == BlobErrorCode.BlobNotFound || ex.ErrorCode == BlobErrorCode.ContainerNotFound)
-                {
-                    throw new FileStorageException("File not found in azure storage", FileStorageErrorCode.FileNotFound, ex);
-                }
+                throw new FileStorageException("File not found in azure storage", FileStorageErrorCode.FileNotFound, ex);
             }
         }
 

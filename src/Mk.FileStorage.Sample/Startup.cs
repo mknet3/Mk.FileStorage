@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Mk.FileStorage.AspNetCore;
 
 namespace Mk.FileStorage.Sample
 {
@@ -27,7 +28,10 @@ namespace Mk.FileStorage.Sample
                 CreateContainerIfNotExists(connectionString);
             }
 
-            services.AddAzureMkFileStorage(_configuration, connectionString);
+            var section = _configuration.GetSection(AzureBlobStorageOptions.DefaultSection);
+
+            // Register Azure Blob as main File Storage
+            services.AddAzureMkFileStorage(section!, connectionString!);
         }
 
         public void Configure(IApplicationBuilder app)
@@ -35,8 +39,10 @@ namespace Mk.FileStorage.Sample
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            { 
-                endpoints.MapMkFileStorage();
+            {
+                // Endpoint to download and upload stream files to registered storage (in this case Azure)
+                // Local example: https://localhost:5001/my-files/fileName.txt
+                endpoints.MapMkFileStorage("my-files");
             });
         }
 
