@@ -3,13 +3,14 @@
 Mk.FileStorage is a simple solution to integrate a File Storage in your ASP.NET Core project using streaming.
 
 ![CI](https://github.com/m-knet/Mk.FileStorage/workflows/CI/badge.svg)
+![Continuous Deployment PREVIEW](https://github.com/m-knet/Mk.FileStorage/workflows/Continuous%20Deployment%20PREVIEW/badge.svg)
 
 ## Getting Started
 
 ### Prerequisites
 
-* .NET Core 3.1
-* Docker
+* .NET Core 3.1 / 5.0
+* Docker (optional, to mock Azure Blob Storage with Azurite)
 
 ### Development Environment
 
